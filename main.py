@@ -11,7 +11,6 @@ class GameLoop(object):
 
         # Load map00
         self.map = GameMap(self.gw.canvas, loadMap("01.txt"))
-        self.map.drawMap()
         self.gw.canvas.bind("<KeyPress>", self.keypress)
         self.gw.canvas.focus_set()
         self.hero = Hero(self.gw.canvas)
@@ -21,13 +20,13 @@ class GameLoop(object):
 
     def keypress(self, e):
         if e.keycode == 87:   # W
-            self.hero.Move(self.hero.x, self.hero.y - 72)
+            self.hero.Move(self.hero.x, self.hero.y - 72, self.map.wallXY)
         elif e.keycode == 83:  # S
-            self.hero.Move(self.hero.x, self.hero.y + 72)
+            self.hero.Move(self.hero.x, self.hero.y + 72, self.map.wallXY)
         elif e.keycode == 65:  # A
-            self.hero.Move(self.hero.x - 72, self.hero.y)
+            self.hero.Move(self.hero.x - 72, self.hero.y, self.map.wallXY)
         elif e.keycode == 68:  # D
-            self.hero.Move(self.hero.x + 72, self.hero.y)
+            self.hero.Move(self.hero.x + 72, self.hero.y, self.map.wallXY)
 
 
 gl = GameLoop(720, 720)
