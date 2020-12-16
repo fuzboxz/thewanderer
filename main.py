@@ -23,14 +23,13 @@ class GameLoop(object):
         self.enemies = []
         for i in range(3):
             enemyXY = findEmptyCell(self.nonempty)
-            self.enemies.append(Skeleton(self.gw.canvas, enemyXY))
+            self.enemies.append(Skeleton(self.gw.canvas, enemyXY, level=1))
             self.nonempty.append(enemyXY)
 
         # Generate boss
         bossXY = findEmptyCell(self.nonempty)
-        self.enemies.append(Boss(self.gw.canvas, bossXY))
+        self.enemies.append(Boss(self.gw.canvas, bossXY, level=1))
         self.nonempty.append(bossXY)
-        
 
         # Start tk loop
         self.gw.root.mainloop()
@@ -44,6 +43,8 @@ class GameLoop(object):
             self.hero.Move(self.hero.x - 72, self.hero.y, self.map.wallXY)
         elif e.keycode == 68:  # D
             self.hero.Move(self.hero.x + 72, self.hero.y, self.map.wallXY)
+        elif e.keycode == 32:
+            self.hero.Strike(self.enemies)
 
 
 gl = GameLoop(720, 720)

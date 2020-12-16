@@ -38,3 +38,20 @@ class Hero(Character):
                 self.y = y
 
         self.Draw(dir)
+
+    def Strike(self, enemies):
+        enemy = ""
+        index = -1
+        for i in range(len(enemies)):
+            if enemies[i].x == self.x and enemies[i].y == self.y:
+                enemy = enemies[i]
+
+        if (type(enemy) != str):
+            damage = self.sp + D6() * 2
+            print("Hero hitting ", type(enemy).__name__)
+            print("Damage:", damage)
+            print("Enemy health:", enemy.hp)
+            if enemy.Hit(damage):
+                print("Destroyed")
+
+
