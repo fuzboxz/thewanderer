@@ -1,7 +1,8 @@
+from lib.Graphics import GameMap, GameWindow
 from lib.Hero import Hero
+from lib.Boss import Boss
 from lib.Skeleton import Skeleton
-from lib.Graphics import GameWindow, GameMap
-from lib.Utility import loadMap, findEmptyCell
+from lib.Utility import findEmptyCell, loadMap
 
 
 class GameLoop(object):
@@ -24,6 +25,12 @@ class GameLoop(object):
             enemyXY = findEmptyCell(self.nonempty)
             self.enemies.append(Skeleton(self.gw.canvas, enemyXY))
             self.nonempty.append(enemyXY)
+
+        # Generate boss
+        bossXY = findEmptyCell(self.nonempty)
+        self.enemies.append(Boss(self.gw.canvas, bossXY))
+        self.nonempty.append(bossXY)
+        
 
         # Start tk loop
         self.gw.root.mainloop()
