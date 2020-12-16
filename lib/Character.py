@@ -21,3 +21,12 @@ class Character(object):
     @abstractmethod
     def Delete(self):
         self.canvas.delete(self.id)
+
+    @abstractmethod
+    def Hit(self, damage):
+        if (self.hp <= damage):
+            self.Delete()
+            return True
+        else:
+            self.hp -= damage
+            return False
