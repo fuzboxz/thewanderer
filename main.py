@@ -1,6 +1,7 @@
 from lib.Hero import Hero
+from lib.Skeleton import Skeleton
 from lib.Graphics import GameWindow, GameMap
-from lib.Utility import loadMap
+from lib.Utility import loadMap, findEmptyCell
 
 
 class GameLoop(object):
@@ -14,6 +15,15 @@ class GameLoop(object):
         self.gw.canvas.bind("<KeyPress>", self.keypress)
         self.gw.canvas.focus_set()
         self.hero = Hero(self.gw.canvas)
+        self.nonempty = []
+        self.nonempty += self.map.wallXY
+
+        # Generate skeletons
+        self.enemies = []
+        for i in range(3):
+            enemyXY = findEmptyCell(self.nonempty)
+            self.enemies.append(Skeleton(self.gw.canvas, enemyXY))
+            self.nonempty.append(enemyXY)
 
         # Start tk loop
         self.gw.root.mainloop()
