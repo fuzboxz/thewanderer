@@ -1,4 +1,5 @@
 from lib.Character import Character
+from lib.Skeleton import Skeleton
 from lib.Utility import D6, loadImage
 
 
@@ -11,6 +12,7 @@ class Hero(Character):
         self.dp = 2 * D6()
         self.sp = 5 + D6()
         self.level = 1
+        self.haskey = False
 
         self.x = 0
         self.y = 0
@@ -50,9 +52,23 @@ class Hero(Character):
         if (type(enemy) != str):
             damage = self.sp + D6() * 2
             print("Hero hitting ", type(enemy).__name__)
-            print("Damage:", damage)
             print("Enemy health:", enemy.hp)
+            print("Damage:", damage)
             if enemy.Hit(damage):
                 print(type(enemy).__name__, " destroyed")
+                enemies.remove(enemy)
+                if isinstance(enemy, Skeleton) and enemy.haskey:
+                    self.haskey = True
+                    print("Got key!")
             else:
+
                 enemy.Strike(self)
+
+
+    # level up
+    def LevelUp(self):
+        self.haskey = False
+        self.hp += D6()
+        self.sp += D6()
+        self.dp += D6()
+        self.level += 1
