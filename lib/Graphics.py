@@ -9,7 +9,26 @@ class GameWindow(object):
         self.height = height
 
         self.canvas = Canvas(self.root, width=self.width, height=self.height)
+        self._stats = Canvas(self.root, width=self.width, height="32")
+
         self.canvas.pack()
+        self._stats.pack()
+
+    def updateStats(self, hero):
+        if hero.hp <= 0:
+            self.dead()
+            return
+        else:
+            self._stats.delete("all")
+            self._stats.create_rectangle(0, 0, self.width, 30, fill="green")
+            stats = f"Level: {hero.level} - HP: {hero.hp} - DP: {hero.dp} - SP: {hero.sp}"
+            self._stats.create_text(10, 10, text=stats, anchor=NW)
+
+    def dead(self):
+        self._stats.delete("all")
+        self._stats.create_rectangle(0, 0, self.width, 30, fill="green")
+        stats = "You are dead. Try harder. :("
+        self._stats.create_text(10, 10, text=stats, anchor=NW)
 
 
 class GameMap(object):

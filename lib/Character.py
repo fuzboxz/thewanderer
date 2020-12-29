@@ -25,11 +25,11 @@ class Character(object):
 
     @abstractmethod
     def Hit(self, damage):
-        if (self.hp <= damage):
+        self.hp -= damage
+        if (self.hp <= 0):
             self.Delete()
             return True
         else:
-            self.hp -= damage
             return False
 
     @abstractmethod
