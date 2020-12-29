@@ -5,11 +5,12 @@ from lib.Utility import D6
 
 class Skeleton(Character):
 
-    def __init__(self, canvas, xy, level):
+    def __init__(self, canvas, xy, level, haskey=False):
         super().__init__(canvas)
         self.img = loadImage("skeleton.gif")
         self.x = xy[0]
         self.y = xy[1]
+        self.haskey = haskey
         self.hp = 2 * level * D6()
         self.dp = level / 2 * D6()
         self.sp = level * D6()
