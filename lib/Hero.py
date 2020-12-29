@@ -39,6 +39,7 @@ class Hero(Character):
 
         self.Draw(dir)
 
+    # overriden as hero can hit any enemy
     def Strike(self, enemies):
         enemy = ""
         index = -1
@@ -52,6 +53,6 @@ class Hero(Character):
             print("Damage:", damage)
             print("Enemy health:", enemy.hp)
             if enemy.Hit(damage):
-                print("Destroyed")
-
-
+                print(type(enemy).__name__," destroyed")
+            else:
+                enemy.Strike(self)

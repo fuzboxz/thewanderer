@@ -15,4 +15,3 @@ class Skeleton(Character):
         self.sp = level * D6()
 
         self.Draw(self.img)
-

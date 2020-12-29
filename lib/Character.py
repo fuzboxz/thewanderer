@@ -1,5 +1,6 @@
 from abc import abstractmethod
 from tkinter.constants import NW
+from lib.Utility import D6
 
 
 class Character(object):
@@ -30,3 +31,11 @@ class Character(object):
         else:
             self.hp -= damage
             return False
+
+    @abstractmethod
+    def Strike(self, enemy):
+        damage = self.sp + D6() * 2
+        print(type(self).__name__, " hitting Hero")
+        print("Damage:", damage)
+        print("Hero health:", enemy.hp)
+        enemy.Hit(damage)
