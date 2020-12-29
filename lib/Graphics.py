@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, NW
+from tkinter import Tk, Canvas, NW, N
 from lib.Utility import loadImage
 
 
@@ -9,7 +9,21 @@ class GameWindow(object):
         self.height = height
 
         self.canvas = Canvas(self.root, width=self.width, height=self.height)
+        self._stats = Canvas(self.root, width=self.width, height="32")
+
         self.canvas.pack()
+        self._stats.pack()
+
+    def updateStats(self, hero):
+        self._stats.delete("all")
+        color = "white"
+        if hero.hp <= 0:
+            stats = "You are DEAD"
+            color = "red3"
+        else:
+            stats = "HP: {0} |  DP: {1} | SP: {2} | Level: {3}".format(hero.hp, hero.dp, hero.sp, hero.level)
+        self._stats.create_rectangle(0, 0, self.width, 30, fill=color)
+        self._stats.create_text(self.width / 2, 7, font=("Arial bold", 12), text=stats, anchor=N)
 
 
 class GameMap(object):

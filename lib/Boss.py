@@ -9,7 +9,7 @@ class Boss(Character):
         self.img = loadImage("boss.gif")
         self.x = xy[0]
         self.y = xy[1]
-        self.hp = 2 * level * D6()
+        self.hp = 200 * level * D6()
         self.dp = level / 2 * D6()
         self.sp = level * D6()
 

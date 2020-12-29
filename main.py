@@ -31,20 +31,25 @@ class GameLoop(object):
         self.enemies.append(Boss(self.gw.canvas, bossXY, level=1))
         self.nonempty.append(bossXY)
 
+        # Update stats
+        self.gw.updateStats(self.hero)
+
         # Start tk loop
         self.gw.root.mainloop()
 
     def keypress(self, e):
-        if e.keycode == 87:   # W
-            self.hero.Move(self.hero.x, self.hero.y - 72, self.map.wallXY)
-        elif e.keycode == 83:  # S
-            self.hero.Move(self.hero.x, self.hero.y + 72, self.map.wallXY)
-        elif e.keycode == 65:  # A
-            self.hero.Move(self.hero.x - 72, self.hero.y, self.map.wallXY)
-        elif e.keycode == 68:  # D
-            self.hero.Move(self.hero.x + 72, self.hero.y, self.map.wallXY)
-        elif e.keycode == 32:
-            self.hero.Strike(self.enemies)
+        if (self.hero.hp > 0):
+            if e.keycode == 87:   # W
+                self.hero.Move(self.hero.x, self.hero.y - 72, self.map.wallXY)
+            elif e.keycode == 83:  # S
+                self.hero.Move(self.hero.x, self.hero.y + 72, self.map.wallXY)
+            elif e.keycode == 65:  # A
+                self.hero.Move(self.hero.x - 72, self.hero.y, self.map.wallXY)
+            elif e.keycode == 68:  # D
+                self.hero.Move(self.hero.x + 72, self.hero.y, self.map.wallXY)
+            elif e.keycode == 32:
+                self.hero.Strike(self.enemies)
+                self.gw.updateStats(self.hero)
 
 
 gl = GameLoop(720, 720)

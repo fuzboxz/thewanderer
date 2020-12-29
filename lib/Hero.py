@@ -10,6 +10,7 @@ class Hero(Character):
         self.hp = 20 + 3 * D6()
         self.dp = 2 * D6()
         self.sp = 5 + D6()
+        self.level = 1
 
         self.x = 0
         self.y = 0
@@ -42,7 +43,6 @@ class Hero(Character):
     # overriden as hero can hit any enemy
     def Strike(self, enemies):
         enemy = ""
-        index = -1
         for i in range(len(enemies)):
             if enemies[i].x == self.x and enemies[i].y == self.y:
                 enemy = enemies[i]
@@ -53,6 +53,6 @@ class Hero(Character):
             print("Damage:", damage)
             print("Enemy health:", enemy.hp)
             if enemy.Hit(damage):
-                print(type(enemy).__name__," destroyed")
+                print(type(enemy).__name__, " destroyed")
             else:
                 enemy.Strike(self)
