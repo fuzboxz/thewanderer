@@ -71,4 +71,5 @@ class GameLoop(object):
         self.hero.LevelUp()
         self.generateEnemies(level)
 
+
 gl = GameLoop(720, 720)

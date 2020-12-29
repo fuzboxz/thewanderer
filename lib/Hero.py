@@ -50,20 +50,31 @@ class Hero(Character):
                 enemy = enemies[i]
 
         if (type(enemy) != str):
-            damage = self.sp + D6() * 2
-            print("Hero hitting ", type(enemy).__name__)
-            print("Enemy health:", enemy.hp)
-            print("Damage:", damage)
-            if enemy.Hit(damage):
-                print(type(enemy).__name__, " destroyed")
-                enemies.remove(enemy)
-                if isinstance(enemy, Skeleton) and enemy.haskey:
-                    self.haskey = True
-                    print("Got key!")
-            else:
+            
+            print("\nHero vs {0}".format(type(enemy).__name__))
 
-                enemy.Strike(self)
+            while (enemy.hp >= 0 or self.hp >= 0):
+                # Hero hits first
+                damage = self.sp + D6() * 2
 
+                print("Hero hitting ", type(enemy).__name__)
+                print("Enemy health:", enemy.hp)
+                print("Damage:", damage)
+
+                if enemy.Hit(damage):  # returns True if enemy was destroyed in the process
+                    print(type(enemy).__name__, " destroyed")
+                    enemies.remove(enemy)  # remove from list
+
+                    if isinstance(enemy, Skeleton) and enemy.haskey:
+                        self.haskey = True
+                        print("Got key!")
+
+                    return  # stop loop as enemy has been destroyed
+
+                else:
+                    enemy.Strike(self)
+                    if self.hp <= 0:
+                        return  # stop loop as hero died
 
     # level up
     def LevelUp(self):
