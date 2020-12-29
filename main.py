@@ -50,8 +50,6 @@ class GameLoop(object):
             elif e.keycode == 32:
                 self.hero.Strike(self.enemies)
                 self.gw.updateStats(self.hero)
-        else:
-            self.gw.dead()
 
 
 gl = GameLoop(720, 720)
