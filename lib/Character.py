@@ -13,8 +13,10 @@ class Character(object):
     def Move(self, x, y, blocked):
         if ([x, y] not in blocked):
             if (0 <= x < 720) & (0 <= y < 720):
+                blocked.remove([self.x, self.y])
                 self.x = x
                 self.y = y
+                blocked.append([x, y])
             else:
                 return False
         else:

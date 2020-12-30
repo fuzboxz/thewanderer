@@ -80,27 +80,31 @@ class Hero(Character):
 
     # level up
     def LevelUp(self):
+        # prepare for new level
+        self.level += 1
         self.x = 0
         self.y = 0
         self.haskey = False
+
+        # level-up
         hp_roll = D6()
         self.hp += hp_roll
         self.maxhp += hp_roll
         self.sp += D6()
         self.dp += D6()
-        self.level += 1
 
-        # random events
+        # healing
         random = randint(0, 9)  # nosec
         prev = self.hp
-        if (random < 5):
+        if (random < 5):  # 50% - 10% healing
             self.hp += int(self.maxhp * 0.1)
-        elif (5 <= random < 9):
+        elif (5 <= random < 9):  # 40% - 1/3 healing
             self.hp += int(self.maxhp * 0.3333)
-        elif (random == 9):
+        elif (random == 9):  # 10% - full recovery
             self.hp = self.maxhp
-        if self.hp > self.maxhp:
+        if self.hp > self.maxhp:  # can't heal above max HP 
             self.hp = self.maxhp
+
         print("\nRestored {0} HP\n".format(abs(self.hp - prev)))
 
         self.Draw(self.down)

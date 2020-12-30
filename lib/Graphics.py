@@ -1,3 +1,4 @@
+from random import randint
 from tkinter import Tk, Canvas, NW, N
 from lib.Utility import loadImage
 
@@ -30,12 +31,14 @@ class GameMap(object):
     def __init__(self, canvas, map):
         self.canvas = canvas
         self.map = map
+        print(map)
         self.wallXY = []  # stores xy coordinates of wall boundaries
         self.floor = loadImage("floor.gif")
         self.wall = loadImage("wall.gif")
         self.drawMap()
 
     def drawMap(self):
+        self.canvas.delete("all")
         x = 0
         y = 0
 
@@ -61,3 +64,20 @@ class GameMap(object):
 
     def drawWall(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.wall)
+
+    @staticmethod
+    def generateRandomMap():
+        randmap = []
+        for row in range(10):
+            randmap.append([])
+            for cell in range(10):
+                randmap[row].append(str(0))
+        wallsegments = randint(10, 25)
+        for i in range(wallsegments):
+            while True:
+                x = randint(0, 9) 
+                y = randint(0, 9)
+                if randmap[x][y] != '1' and [x, y] != [0, 0]:
+                    randmap[x][y] = '1'
+                    break
+        return randmap
