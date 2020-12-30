@@ -10,8 +10,17 @@ class Character(object):
         self.id = -1  # -1 canvas id means that there is no object drawn on the canvas
 
     @abstractmethod
-    def Move(self, x, y):
-        pass
+    def Move(self, x, y, blocked):
+        if ([x, y] not in blocked):
+            if (0 <= x < 720) & (0 <= y < 720):
+                self.x = x
+                self.y = y
+            else:
+                return False
+        else:
+            return False
+
+        self.Draw(self.img)
 
     @abstractmethod
     def Draw(self, img):
@@ -25,6 +34,8 @@ class Character(object):
 
     @abstractmethod
     def Hit(self, damage):
+        if damage < 0:
+            damage = 0
         self.hp -= damage
         if (self.hp <= 0):
             self.Delete()
@@ -36,6 +47,6 @@ class Character(object):
     def Strike(self, enemy):
         damage = self.sp + D6() * 2
         print(type(self).__name__, " hitting Hero")
-        print("Damage:", damage)
+        print("Damage: {0} - {1} ".format(damage, enemy.dp))
         print("Hero health:", enemy.hp)
-        enemy.Hit(damage)
+        enemy.Hit(damage - enemy.dp)

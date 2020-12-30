@@ -21,7 +21,7 @@ class GameWindow(object):
             stats = "You are DEAD"
             color = "red3"
         else:
-            stats = "HP: {0} |  DP: {1} | SP: {2} | Key: {3} | Level: {4}".format(hero.hp, hero.dp, hero.sp, hero.haskey, hero.level)
+            stats = "HP: {5}/{0} |  DP: {1} | SP: {2} | Key: {3} | Level: {4}".format(hero.hp, hero.dp, hero.sp, hero.haskey, hero.level, hero.maxhp)
         self._stats.create_rectangle(0, 0, self.width, 30, fill=color)
         self._stats.create_text(self.width / 2, 7, font=("Arial bold", 12), text=stats, anchor=N)
 
