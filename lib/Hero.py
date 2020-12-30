@@ -1,3 +1,4 @@
+from random import randint
 from lib.Character import Character
 from lib.Skeleton import Skeleton
 from lib.Utility import D6, loadImage
@@ -9,6 +10,7 @@ class Hero(Character):
         super().__init__(canvas)
 
         self.hp = 20 + 3 * D6()
+        self.maxhp = self.hp
         self.dp = 2 * D6()
         self.sp = 5 + D6()
         self.level = 1
@@ -50,7 +52,7 @@ class Hero(Character):
                 enemy = enemies[i]
 
         if (type(enemy) != str):
-            
+
             print("\nHero vs {0}".format(type(enemy).__name__))
 
             while (enemy.hp >= 0 or self.hp >= 0):
@@ -59,7 +61,7 @@ class Hero(Character):
 
                 print("Hero hitting ", type(enemy).__name__)
                 print("Enemy health:", enemy.hp)
-                print("Damage:", damage)
+                print("Damage: {0} - {1} ".format(damage, enemy.dp))
 
                 if enemy.Hit(damage):  # returns True if enemy was destroyed in the process
                     print(type(enemy).__name__, " destroyed")
@@ -78,8 +80,27 @@ class Hero(Character):
 
     # level up
     def LevelUp(self):
+        self.x = 0
+        self.y = 0
         self.haskey = False
-        self.hp += D6()
+        hp_roll = D6()
+        self.hp += hp_roll
+        self.maxhp += hp_roll
         self.sp += D6()
         self.dp += D6()
         self.level += 1
+
+        # random events
+        random = randint(0, 9)  # nosec
+        prev = self.hp
+        if (random < 5):
+            self.hp += int(self.maxhp * 0.1)
+        elif (5 <= random < 9):
+            self.hp += int(self.maxhp * 0.3333)
+        elif (random == 9):
+            self.hp = self.maxhp
+        if self.hp > self.maxhp:
+            self.hp = self.maxhp
+        print("\nRestored {0} HP\n".format(abs(self.hp - prev)))
+
+        self.Draw(self.down)
