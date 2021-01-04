@@ -44,8 +44,9 @@ class GameLoop(object):
                 if not any(isinstance(enemy, Boss) for enemy in self.enemies) and self.hero.haskey:
                     self.nextLevel(self.hero.level + 1)
                 self.gw.updateStats(self.hero)
-            
-            if e.keycode in [87, 83, 65, 68]: self.moveEnemies()
+
+            if e.keycode in [87, 83, 65, 68]:
+                self.moveEnemies()
 
     # generate a bunch of enemies
     def generateEnemies(self, level):
@@ -65,7 +66,7 @@ class GameLoop(object):
         self.enemies.append(Boss(self.gw.canvas, bossXY, level=level))
         self.nonempty.append(bossXY)
 
-    # Prepare for next level - clear and generate enemies and collision blocks, level up hero, generate random map 
+    # Prepare for next level - clear and generate enemies and collision blocks, level up hero, generate random map
     def nextLevel(self, level):
         self.enemies = []
         self.nonempty = []
@@ -77,7 +78,7 @@ class GameLoop(object):
     # move enemies - collision handled in Character class so that there is no overlap
     def moveEnemies(self):
         for enemy in self.enemies:
-            direction = randint(1, 6)  # nosec - not crypto
+            direction = randint(1, 8)  # nosec - not crypto
             if (direction == 1):  # up
                 enemy.Move(enemy.x, enemy.y - 72, self.nonempty)
             elif (direction == 2):

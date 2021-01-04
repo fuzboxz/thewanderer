@@ -31,7 +31,6 @@ class GameMap(object):
     def __init__(self, canvas, map):
         self.canvas = canvas
         self.map = map
-        print(map)
         self.wallXY = []  # stores xy coordinates of wall boundaries
         self.floor = loadImage("floor.gif")
         self.wall = loadImage("wall.gif")
@@ -72,12 +71,13 @@ class GameMap(object):
             randmap.append([])
             for cell in range(10):
                 randmap[row].append(str(0))
-        wallsegments = randint(10, 25)
+        wallsegments = randint(10, 15)  # nosec - not crypto, same for all below
         for i in range(wallsegments):
             while True:
-                x = randint(0, 9) 
-                y = randint(0, 9)
-                if randmap[x][y] != '1' and [x, y] != [0, 0]:
+                x = randint(0, 9)  # nosec
+                y = randint(0, 9)  # nosec
+
+                if [x, y] != [0, 0]:  # not on origin
                     randmap[x][y] = '1'
                     break
         return randmap

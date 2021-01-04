@@ -102,7 +102,7 @@ class Hero(Character):
             self.hp += int(self.maxhp * 0.3333)
         elif (random == 9):  # 10% - full recovery
             self.hp = self.maxhp
-        if self.hp > self.maxhp:  # can't heal above max HP 
+        if self.hp > self.maxhp:  # can't heal above max HP
             self.hp = self.maxhp
 
         print("\nRestored {0} HP\n".format(abs(self.hp - prev)))
